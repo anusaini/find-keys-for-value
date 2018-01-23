@@ -1,6 +1,6 @@
 {
   "name": "find-keys-for-value",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Find all the keys that have the given value - node module",
   "main": "index.js",
   "scripts": {

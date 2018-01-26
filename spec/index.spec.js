@@ -1,5 +1,9 @@
+'use strict'
+
+/* global describe it */
+
 const expect = require('chai').expect
-const lib = require('../index')
+const lib = require('../src/index')
 
 describe('find in object', () => {
     const compare = (a, b) => a === b
@@ -8,17 +12,17 @@ describe('find in object', () => {
         b: 'bb',
         c: 'cc',
         d: [{
-                key: 'aa',
-                val: 'bb'
-            },
-            {
-                key: 'aa',
-                val: 'bb'
-            },
-            {
-                key: 'aa',
-                val: 'cc'
-            }
+            key: 'aa',
+            val: 'bb'
+        },
+        {
+            key: 'aa',
+            val: 'bb'
+        },
+        {
+            key: 'aa',
+            val: 'cc'
+        }
         ]
     }
 
@@ -27,19 +31,19 @@ describe('find in object', () => {
         const whenFound = key => {
             out.push(key)
         }
-        lib.findSingleValueInObject(obj, 'bb', compare, whenFound)
+        lib.findValue(obj, 'bb', compare, whenFound)
         expect(out).to.deep.equal([{
-                loc: 'b',
-                val: 'bb'
-            },
-            {
-                loc: 'd.0.val',
-                val: 'bb'
-            },
-            {
-                loc: 'd.1.val',
-                val: 'bb'
-            }
+            loc: 'b',
+            val: 'bb'
+        },
+        {
+            loc: 'd.0.val',
+            val: 'bb'
+        },
+        {
+            loc: 'd.1.val',
+            val: 'bb'
+        }
         ])
         expect(out.length).to.equal(3)
     })
@@ -49,27 +53,28 @@ describe('find in object', () => {
         const whenFound = key => {
             out.push(key)
         }
-        lib.findValuesInObject(obj, ['bb', 'cc'], compare, whenFound)
+        lib.findValues(obj, ['bb',
+            'cc'], compare, whenFound)
         expect(out).to.deep.equal([{
-                loc: 'b',
-                val: 'bb'
-            },
-            {
-                loc: 'd.0.val',
-                val: 'bb'
-            },
-            {
-                loc: 'd.1.val',
-                val: 'bb'
-            },
-            {
-                loc: 'c',
-                val: 'cc'
-            },
-            {
-                loc: 'd.2.val',
-                val: 'cc'
-            }
+            loc: 'b',
+            val: 'bb'
+        },
+        {
+            loc: 'd.0.val',
+            val: 'bb'
+        },
+        {
+            loc: 'd.1.val',
+            val: 'bb'
+        },
+        {
+            loc: 'c',
+            val: 'cc'
+        },
+        {
+            loc: 'd.2.val',
+            val: 'cc'
+        }
         ])
         expect(out.length).to.equal(5)
     })
